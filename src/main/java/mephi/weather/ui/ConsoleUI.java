@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import mephi.weather.api.dto.Point;
 import mephi.weather.api.dto.Weather;
+import mephi.weather.api.exception.WeatherApiException;
 import mephi.weather.service.GeoService;
 import mephi.weather.service.WeatherService;
 

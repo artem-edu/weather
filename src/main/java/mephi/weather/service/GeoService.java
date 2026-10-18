@@ -6,7 +6,7 @@ import java.net.http.HttpResponse;
 import mephi.weather.api.GeoApi;
 import mephi.weather.api.dto.GeoApiError;
 import mephi.weather.api.dto.Point;
-import mephi.weather.api.exception.YandexApiException;
+import mephi.weather.api.exception.GeoApiException;
 import tools.jackson.databind.ObjectMapper;
 
 public class GeoService {
@@ -23,7 +23,7 @@ public class GeoService {
         }
 
         GeoApiError apiError = mapper.readValue(response.body(), GeoApiError.class);
-        throw new YandexApiException(apiError);
+        throw new GeoApiException(apiError);
     }
 
 }
