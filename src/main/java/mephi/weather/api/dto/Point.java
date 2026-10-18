@@ -13,7 +13,7 @@ public class Point {
         this.lon = lon;
     }
 
-    public double log() {
+    public double lon() {
         return this.lon;
     }
 

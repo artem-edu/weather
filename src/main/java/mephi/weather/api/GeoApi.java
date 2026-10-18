@@ -14,11 +14,11 @@ public class GeoApi {
     private final String API_URL = "https://geocode-maps.yandex.ru/v1";
     private final String API_KEY;
 
+    private final HttpClient client = HttpClient.newHttpClient();
+
     public GeoApi() {
         API_KEY = Config.getValue("GEO_API_KEY");
     }
-
-    private final HttpClient client = HttpClient.newHttpClient();
 
     public HttpResponse<String> getCoordResponse(String addr) throws IOException, InterruptedException {
         URI uri = buildGeoUrl(addr);
