@@ -1,19 +1,24 @@
 package mephi.weather.ui;
 
+import java.net.http.HttpClient;
 import java.util.Scanner;
 
 import mephi.weather.api.dto.Point;
 import mephi.weather.api.dto.Weather;
-import mephi.weather.api.exception.WeatherApiException;
 import mephi.weather.service.GeoService;
 import mephi.weather.service.WeatherService;
+import tools.jackson.databind.ObjectMapper;
 
 public class ConsoleUI {
     private final Scanner scanner;
-    private final GeoService geoService = new GeoService();
-    private final WeatherService weatherService = new WeatherService();
+    private final GeoService geoService;
+    private final WeatherService weatherService;
 
     public ConsoleUI() {
+        HttpClient httpClient = HttpClient.newHttpClient();
+        ObjectMapper objectMapper = new ObjectMapper();
+        this.geoService = new GeoService(httpClient, objectMapper);
+        this.weatherService = new WeatherService(httpClient, objectMapper);
         this.scanner = new Scanner(System.in);
     }
 

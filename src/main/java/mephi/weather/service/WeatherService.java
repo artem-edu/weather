@@ -1,6 +1,7 @@
 package mephi.weather.service;
 
 import java.io.IOException;
+import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 
 import mephi.weather.api.WeatherApi;
@@ -11,11 +12,16 @@ import mephi.weather.api.exception.WeatherApiException;
 import tools.jackson.databind.ObjectMapper;
 
 public class WeatherService {
-    private final WeatherApi client = new WeatherApi();
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final WeatherApi weatherApi;
+    private final ObjectMapper mapper;
+
+    public WeatherService(HttpClient httpClient, ObjectMapper mapper) {
+        this.mapper = mapper;
+        this.weatherApi = new WeatherApi(httpClient);
+    }
 
     public Weather getWeather(Point point, int limit) throws IOException, InterruptedException {
-        HttpResponse<String> response = client.getWeatherResponse(point, limit);
+        HttpResponse<String> response = weatherApi.getWeatherResponse(point, limit);
 
         if (response.statusCode() == 200) {
             Weather weather = mapper.readValue(response.body(), Weather.class);
