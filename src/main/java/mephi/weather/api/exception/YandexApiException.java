@@ -1,16 +1,16 @@
 package mephi.weather.api.exception;
 
-import mephi.weather.api.dto.ApiError;
+import mephi.weather.api.dto.GeoApiError;
 
 public class YandexApiException extends RuntimeException {
-    private final ApiError apiError;
+    private final GeoApiError apiError;
 
-    public YandexApiException(ApiError apiError) {
+    public YandexApiException(GeoApiError apiError) {
         super(apiError.message());
         this.apiError = apiError;
     }
 
-    public ApiError getError() {
+    public GeoApiError getError() {
         return this.apiError;
     }
 }

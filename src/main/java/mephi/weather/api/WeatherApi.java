@@ -8,7 +8,7 @@ import java.net.http.HttpResponse;
 import java.util.Locale;
 
 import mephi.weather.api.dto.Point;
-import mephi.weather.service.Config;
+import mephi.weather.service.ConfigService;
 
 public class WeatherApi {
     private final String API_URL = "https://api.weather.yandex.ru/v2/forecast";
@@ -17,11 +17,11 @@ public class WeatherApi {
     private final HttpClient client = HttpClient.newHttpClient();
 
     public WeatherApi() {
-        API_KEY = Config.getValue("WEATHER_API_KEY");
+        API_KEY = ConfigService.getValue("WEATHER_API_KEY");
     }
 
-    public HttpResponse<String> getWeatherResponse(Point point) throws IOException, InterruptedException {
-        URI uri = buildUrl(point);
+    public HttpResponse<String> getWeatherResponse(Point point, int limit) throws IOException, InterruptedException {
+        URI uri = buildUrl(point, limit);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
                 .header("X-Yandex-Weather-Key", API_KEY)
@@ -33,9 +33,13 @@ public class WeatherApi {
         return response;
     }
 
-    private URI buildUrl(Point point) {
-        String queryString = String.format(Locale.US, "lat=%.5f&lon=%.5f", point.lat(), point.lon());
-        System.out.println(queryString);
+    private URI buildUrl(Point point, int limit) {
+        String queryString = String.format(
+                Locale.US,
+                "lat=%.5f&lon=%.5f&limit=%d",
+                point.lat(),
+                point.lon(),
+                limit);
         URI uri = URI.create(API_URL + "?" + queryString);
 
         return uri;

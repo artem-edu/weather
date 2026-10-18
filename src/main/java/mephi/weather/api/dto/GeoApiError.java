@@ -3,13 +3,13 @@ package mephi.weather.api.dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ApiError {
+public class GeoApiError {
     private final int statusCode;
     private final String error;
     private final String message;
 
     @JsonCreator
-    public ApiError(
+    public GeoApiError(
             @JsonProperty("statusCode") int statusCode,
             @JsonProperty("error") String error,
             @JsonProperty("message") String message) {

@@ -8,7 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
-import mephi.weather.service.Config;
+import mephi.weather.service.ConfigService;
 
 public class GeoApi {
     private final String API_URL = "https://geocode-maps.yandex.ru/v1";
@@ -17,7 +17,7 @@ public class GeoApi {
     private final HttpClient client = HttpClient.newHttpClient();
 
     public GeoApi() {
-        API_KEY = Config.getValue("GEO_API_KEY");
+        API_KEY = ConfigService.getValue("GEO_API_KEY");
     }
 
     public HttpResponse<String> getCoordResponse(String addr) throws IOException, InterruptedException {
